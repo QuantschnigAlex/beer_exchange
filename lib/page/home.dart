@@ -158,7 +158,7 @@ class Home extends ConsumerWidget {
   void bierPriceCalc(
       int bierCounter, WidgetRef ref, double bierPrice, double beerPercent) {
     if (bierCounter > 0 && bierCounter % 20 == 0) {
-      //   AudioPlayer().play(AssetSource('audio/bell.mp3'), volume: 50);
+      AudioPlayer().play(AssetSource('audio/bell.mp3'), volume: 50);
       ref.read(priceOfBeer.notifier).state = bierPrice - 0.10;
       ref.read(percentInBier.notifier).state = 0.05;
     } else {
