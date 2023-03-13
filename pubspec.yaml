@@ -39,6 +39,7 @@ dependencies:
   percent_indicator: ^4.2.3
   gif: ^2.2.0
   audioplayers: ^3.0.1
+  marquee: ^2.2.3
   
   
 dev_dependencies:

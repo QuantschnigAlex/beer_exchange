@@ -5,17 +5,19 @@
  * Version: 1.0.0
  * ToDo - Add a gif to the background
  * ToDo - Out Comment the Audiplayer in the bierPriceCalc
+ * ToDo 2.50 limit
  */
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:beer_exchange/colors.dart';
+import 'package:beer_exchange/widgets/ad_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+import '../widgets/progress_indicator.dart';
 
 final bierCount = StateProvider<int>((_) => 0);
 final percentInBier = StateProvider<double>((_) => 0.00);
-final priceOfBeer = StateProvider<double>((_) => 4.50);
+final priceOfBeer = StateProvider<double>((_) => 4.30);
 
 class Home extends ConsumerWidget {
   const Home({super.key});
@@ -28,14 +30,6 @@ class Home extends ConsumerWidget {
     final scrennHeight =
         MediaQuery.of(context).size.height - AppBar().preferredSize.height;
     final screenWidth = MediaQuery.of(context).size.width;
-    /*
-    final Future<Image> _imageLoader = Future<Image>.delayed(
-      const Duration(seconds: 5),
-      () => Image.network(
-        'https://i.giphy.com/media/DGWAx8d3IkICs/200.gif',
-        fit: BoxFit.contain,
-      ),
-    );*/
     return Scaffold(
       backgroundColor: background1,
       appBar: AppBar(
@@ -55,15 +49,7 @@ class Home extends ConsumerWidget {
                     children: [
                       Expanded(
                         flex: 2,
-                        child: CircularPercentIndicator(
-                          radius: screenWidth * 0.15,
-                          lineWidth: 18.0,
-                          percent: beerPercent,
-                          center: Image.asset(
-                            "assets/images/logo_riepl_white.png",
-                          ),
-                          progressColor: Color.fromRGBO(36, 88, 166, 1),
-                        ),
+                        child: ProgressBar(beerPercent: beerPercent),
                       ),
                       Expanded(
                         flex: 1,
@@ -100,6 +86,7 @@ class Home extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  AdBar(beerPrice: bierPrice, beerCount: bierCounter),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -139,15 +126,6 @@ class Home extends ConsumerWidget {
                   ),
                 ],
               ),
-              /*
-              FutureBuilder(
-                future: _imageLoader,
-                builder: (context, snapshot) => SizedBox(
-                  height: scrennHeight,
-                  width: screenWidth,
-                  child: snapshot.data,
-                ),
-              ),*/
             ],
           ),
         ),
@@ -158,7 +136,7 @@ class Home extends ConsumerWidget {
   void bierPriceCalc(
       int bierCounter, WidgetRef ref, double bierPrice, double beerPercent) {
     if (bierCounter > 0 && bierCounter % 20 == 0) {
-      AudioPlayer().play(AssetSource('audio/bell.mp3'), volume: 50);
+      AudioPlayer().play(AssetSource('audio/bell.mp3'), volume: 100);
       ref.read(priceOfBeer.notifier).state = bierPrice - 0.10;
       ref.read(percentInBier.notifier).state = 0.05;
     } else {
