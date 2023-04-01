@@ -1,9 +1,8 @@
 /**
  * Home of the application
  * Author: Alex Quantschnig
- * Date: 2023-03-06
+ * Date: 2023-03-23
  * Version: 1.0.0
- * ToDo - Add a gif to the background
  * ToDo - Out Comment the Audiplayer in the bierPriceCalc
  * ToDo 2.50 limit
  */
@@ -37,97 +36,93 @@ class Home extends ConsumerWidget {
         backgroundColor: appBarColors,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: SizedBox(
-          height: scrennHeight,
-          child: Stack(
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: ProgressBar(beerPercent: beerPercent),
+        padding:
+            const EdgeInsets.only(top: 30, right: 30.0, left: 30.0, bottom: 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: ProgressBar(beerPercent: beerPercent),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 110.0),
+                  child: SizedBox(
+                    width: screenWidth * 0.3,
+                    height: 250,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: SizedBox(
-                          height: scrennHeight * 0.2,
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
+                      elevation: 3,
+                      color: cardBackground,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Bier Preis: ${bierPrice.toStringAsFixed(2)}€",
+                              style: TextStyle(color: textColor, fontSize: 40),
                             ),
-                            elevation: 3,
-                            color: cardBackground,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 80),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Bier Preis: ${bierPrice.toStringAsFixed(2)}€",
-                                    style: TextStyle(
-                                        color: textColor, fontSize: 36),
-                                  ),
-                                  Text(
-                                    "Bier Anzahl: ${bierCounter.toString()}",
-                                    style: TextStyle(
-                                        color: textColor, fontSize: 36),
-                                  ),
-                                ],
-                              ),
+                            Text(
+                              "Bier Anzahl: ${bierCounter.toString()}",
+                              style: TextStyle(color: textColor, fontSize: 40),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                  AdBar(beerPrice: bierPrice, beerCount: bierCounter),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              ref.read(bierCount.notifier).state++;
-                              bierPriceCalc(
-                                  bierCounter, ref, bierPrice, beerPercent);
-                            },
-                            icon: Icon(
-                              Icons.add_box_rounded,
-                              color: textColor,
-                              size: 36,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              ref.read(bierCount.notifier).state--;
-                              bierPriceDecrease(
-                                  bierCounter, ref, bierPrice, beerPercent);
-                            },
-                            icon: Icon(
-                              Icons.remove_circle_rounded,
-                              color: textColor,
-                              size: 36,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        "© Alex Quantschnig",
-                        style: TextStyle(fontSize: 12, color: textColor),
-                      ),
-                    ],
-                  ),
-                ],
+                ),
+              ],
+            ),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 40.0),
+                child: AdBar(beerPrice: bierPrice, beerCount: bierCounter),
               ),
-            ],
-          ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        ref.read(bierCount.notifier).state++;
+                        bierPriceCalc(bierCounter, ref, bierPrice, beerPercent);
+                      },
+                      icon: Icon(
+                        Icons.add_box_rounded,
+                        color: textColor,
+                        size: 36,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        ref.read(bierCount.notifier).state--;
+                        bierPriceDecrease(
+                            bierCounter, ref, bierPrice, beerPercent);
+                      },
+                      icon: Icon(
+                        Icons.remove_circle_rounded,
+                        color: textColor,
+                        size: 36,
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  "© Alex Quantschnig",
+                  style: TextStyle(fontSize: 16, color: textColor),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -136,7 +131,7 @@ class Home extends ConsumerWidget {
   void bierPriceCalc(
       int bierCounter, WidgetRef ref, double bierPrice, double beerPercent) {
     if (bierCounter > 0 && bierCounter % 20 == 0) {
-      AudioPlayer().play(AssetSource('audio/bell.mp3'), volume: 100);
+      AudioPlayer().play(AssetSource('audio/bell.mp3'), volume: 1);
       ref.read(priceOfBeer.notifier).state = bierPrice - 0.10;
       ref.read(percentInBier.notifier).state = 0.05;
     } else {
