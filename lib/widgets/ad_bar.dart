@@ -14,7 +14,7 @@ class AdBar extends StatelessWidget {
         height: 120,
         child: Marquee(
           text:
-              "Bier Börse by Restaurant Riepl  -  Puntigamer  -  Präsentiert von:  Didi Alex Stefan  -  Bürgermeister: Arnold Marbek  -  ♥️ Poggersdorf  -  www.restaurant-riepl.at  -  mail@restaurant-riepl.at  -  Bier trinken  -  Es trinkt der Mensch es säuft das Pferd: nur heute ist es umgekehrt.  -  Lass dich nicht lumpen, hoch den Humpen!  -  Stößchen! Wie man unter Männern sagt.",
+              "Bier Börse by Restaurant Riepl  -  Puntigamer  -  Präsentiert von:  Didi | Alex | Stefan  -  Bürgermeister: Arnold Marbek  -  ♥️ Poggersdorf  -  www.restaurant-riepl.at  -  mail@restaurant-riepl.at  -  Bier trinken  -  Es trinkt der Mensch es säuft das Pferd: nur heute ist es umgekehrt.  -  Lass dich nicht lumpen, hoch den Humpen!  -  Stößchen! Wie man unter Männern sagt.",
           style: TextStyle(
             color: textColor,
             fontSize: 36,

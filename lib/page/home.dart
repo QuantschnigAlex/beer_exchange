@@ -32,6 +32,7 @@ class Home extends ConsumerWidget {
     return Scaffold(
       backgroundColor: background1,
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Bier Börse by Restaurant Riepl'),
         backgroundColor: appBarColors,
       ),
@@ -92,6 +93,8 @@ class Home extends ConsumerWidget {
                 Row(
                   children: [
                     IconButton(
+                      splashRadius: 25,
+                      iconSize: 36,
                       onPressed: () {
                         ref.read(bierCount.notifier).state++;
                         bierPriceCalc(bierCounter, ref, bierPrice, beerPercent);
@@ -99,10 +102,11 @@ class Home extends ConsumerWidget {
                       icon: Icon(
                         Icons.add_box_rounded,
                         color: textColor,
-                        size: 36,
                       ),
                     ),
                     IconButton(
+                      splashRadius: 25,
+                      iconSize: 36,
                       onPressed: () {
                         ref.read(bierCount.notifier).state--;
                         bierPriceDecrease(
@@ -111,7 +115,6 @@ class Home extends ConsumerWidget {
                       icon: Icon(
                         Icons.remove_circle_rounded,
                         color: textColor,
-                        size: 36,
                       ),
                     ),
                   ],
