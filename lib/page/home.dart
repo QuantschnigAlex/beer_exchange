@@ -80,10 +80,11 @@ class Home extends ConsumerWidget {
                 ),
               ],
             ),
+            //adjust padding to only top 40 if necessary (for the ad bar)
             Expanded(
               flex: 1,
               child: Padding(
-                padding: const EdgeInsets.only(top: 40.0),
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: AdBar(beerPrice: bierPrice, beerCount: bierCounter),
               ),
             ),
